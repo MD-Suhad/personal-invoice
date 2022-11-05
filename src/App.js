@@ -7,6 +7,7 @@ import Header from "./conponents/Header";
 import MainDetails from "./conponents/MainDetails";
 import Notes from "./conponents/Notes";
 import Table from "./conponents/Table";
+import TableForm from "./conponents/TableForm";
 
 function App() {
   const handlePrint = () => {
@@ -25,8 +26,15 @@ function App() {
   const [invoiceNumber, setInvoiceNumber] = useState();
   const [invoiceDate, setInvoiceDate] = useState();
   const [dueDate, setDueDate] = useState();
-  const [notes, setNotes] = useState();
+  const [notes, setNotes] = useState(
+    "pay to the bank account indicated above."
+  );
   const [website, setWebsite] = useState();
+  const [items, setItems] = useState();
+  const [quantity, setQuantity] = useState();
+  const [rate, setRate] = useState();
+  const [amount, setAmount] = useState();
+  const [list,setList] = useState([]);
 
   return (
     <>
@@ -48,7 +56,13 @@ function App() {
               dueDate={dueDate}
             />
 
-            <Table />
+            <Table 
+            items={items} 
+            quantity={quantity} 
+            rate={rate} 
+            amount={amount}
+            list={list}
+            />
 
             <Notes notes={notes} />
 
@@ -115,7 +129,7 @@ function App() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-        
+
                 <div className="flex flex-col">
                   <label htmlFor="website"> Your Website link</label>
                   <input
@@ -143,98 +157,115 @@ function App() {
               </article>
               <article className="md:grid grid-cols-2 gap-10">
                 <div className="flex flex-col">
-                <label htmlFor="bankName">Your BankName</label>
-              <input
-                type="text"
-                name="bankName"
-                id="bankName"
-                placeholder="Enter your name"
-                autoComplete="off"
-                value={bankName}
-                onChange={(e) => setBankName(e.target.value)}
-              />
-           </div>
-           <div className="flex flex-col">
-           <label htmlFor="bankAccount">Your AccountNumber</label>
-              <input
-                type="number"
-                name="bankAccount"
-                id="bankAccount"
-                placeholder="Enter your bankAccount"
-                autoComplete="off"
-                value={bankAccount}
-                onChange={(e) => setBankAccount(e.target.value)}
-              />
-           </div>
+                  <label htmlFor="bankName">Your BankName</label>
+                  <input
+                    type="text"
+                    name="bankName"
+                    id="bankName"
+                    placeholder="Enter your name"
+                    autoComplete="off"
+                    value={bankName}
+                    onChange={(e) => setBankName(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="bankAccount">Your AccountNumber</label>
+                  <input
+                    type="number"
+                    name="bankAccount"
+                    id="bankAccount"
+                    placeholder="Enter your bankAccount"
+                    autoComplete="off"
+                    value={bankAccount}
+                    onChange={(e) => setBankAccount(e.target.value)}
+                  />
+                </div>
               </article>
-             <article className="md:grid grid-cols-2 gap-10 mt-16">
-              <div className="flex flex-col">
-              <label htmlFor="clientName">Enter Your ClientName</label>
-              <input
-                type="text"
-                name="clientName"
-                id="clientName"
-                placeholder="Enter your ClientName"
-                autoComplete="off"
-                value={clientName}
-                onChange={(e) => setClientName(e.target.value)}
-              />
-              
-              </div>
-              <div className="flex flex-col">
-              <label htmlFor="clientAddress">Enter Your ClientAddress</label>
-              <input
-                type="text"
-                name="clientAddress"
-                id="clientAddress"
-                placeholder="Enter your ClientAddress"
-                autoComplete="off"
-                value={clientAddress}
-                onChange={(e) => setClientAddress(e.target.value)}
-              />
-              </div>
-             </article>
-             <article className="md:grid grid-cols-3 gap-10 mt-10 mb-5">
-              <div className="flex flex-col">
-              <label htmlFor="invoiceNumber">Your InvoiceNumber</label>
-              <input
-                type="number"
-                name="invoiceNumber"
-                id="invoiceNumber"
-                placeholder="Enter your InvoiceNumber"
-                autoComplete="off"
-                value={invoiceNumber}
-                onChange={(e) => setInvoiceNumber(e.target.value)}
-              />
-              
-              
-              </div>
-              <div className="flex flex-col">
-              <label htmlFor="invoiceDate">Your InvoiceDate</label>
-              <input
-                type="date"
-                name="invoiceDate"
-                id="invoiceDate"
-                placeholder="Enter your InvoiceDate"
-                autoComplete="off"
-                value={invoiceDate}
-                onChange={(e) => setInvoiceDate(e.target.value)}
-              />
-              </div>
-              <div className="flex flex-col">
+              <article className="md:grid grid-cols-2 gap-10 mt-16">
+                <div className="flex flex-col">
+                  <label htmlFor="clientName">Enter Your ClientName</label>
+                  <input
+                    type="text"
+                    name="clientName"
+                    id="clientName"
+                    placeholder="Enter your ClientName"
+                    autoComplete="off"
+                    value={clientName}
+                    onChange={(e) => setClientName(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="clientAddress">
+                    Enter Your ClientAddress
+                  </label>
+                  <input
+                    type="text"
+                    name="clientAddress"
+                    id="clientAddress"
+                    placeholder="Enter your ClientAddress"
+                    autoComplete="off"
+                    value={clientAddress}
+                    onChange={(e) => setClientAddress(e.target.value)}
+                  />
+                </div>
+              </article>
+              <article className="md:grid grid-cols-3 gap-10 mt-10 mb-5">
+                <div className="flex flex-col">
+                  <label htmlFor="invoiceNumber">Your InvoiceNumber</label>
+                  <input
+                    type="number"
+                    name="invoiceNumber"
+                    id="invoiceNumber"
+                    placeholder="Enter your InvoiceNumber"
+                    autoComplete="off"
+                    value={invoiceNumber}
+                    onChange={(e) => setInvoiceNumber(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="invoiceDate">Your InvoiceDate</label>
+                  <input
+                    type="date"
+                    name="invoiceDate"
+                    id="invoiceDate"
+                    placeholder="Enter your InvoiceDate"
+                    autoComplete="off"
+                    value={invoiceDate}
+                    onChange={(e) => setInvoiceDate(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label htmlFor="dueDate">Your Due Date</label>
+                  <input
+                    type="date"
+                    name="dueDate"
+                    id="dueDate"
+                    placeholder="Enter your dueDate"
+                    autoComplete="off"
+                    value={dueDate}
+                    onChange={(e) => setDueDate(e.target.value)}
+                  />
+                </div>
+              </article>
 
-              <label htmlFor="dueDate">Your Due Date</label>
-              <input
-                type="date"
-                name="dueDate"
-                id="dueDate"
-                placeholder="Enter your dueDate"
-                autoComplete="off"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-              />  
-              </div>
-             </article>
+
+              <article>
+                <TableForm 
+                items={items} 
+                setItems={setItems} 
+                quantity= {quantity} 
+                setQuantity={setQuantity} 
+                rate={rate} 
+                setRate={setRate} 
+                amount={amount} 
+                setAmount={setAmount}
+                list={list}
+                setList={setList}
+
+                />
+              </article>
+
+
               <label htmlFor="notes">Additional Notes</label>
               <textarea
                 type="text"
