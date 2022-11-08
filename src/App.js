@@ -1,5 +1,5 @@
 import { useState,useRef } from "react";
-// import ReactToPrint from 'react-to-print';
+import ReactToPrint from 'react-to-print';
 
 
 import ClientDetails from "./conponents/ClientDetails";
@@ -36,9 +36,7 @@ function App() {
   const [invoiceNumber, setInvoiceNumber] = useState();
   const [invoiceDate, setInvoiceDate] = useState();
   const [dueDate, setDueDate] = useState();
-  const [notes, setNotes] = useState(
-    "pay to the bank account indicated above."
-  );
+  const [notes, setNotes] = useState();
   const [website, setWebsite] = useState();
   const [items, setItems] = useState();
   const [quantity, setQuantity] = useState();
@@ -50,10 +48,16 @@ function App() {
   return (
     <>
       <main className="m-5 p-5 md:max-w-xl md:max-auto lg:max-w-2xl xl:max-w-4xl xl:mx-auto bg-white rounded shadow">
-        {/* <ReactToPrint trigger={()=> <button>print/Download</button>}
+        <ReactToPrint trigger={()=> <button
+        className=" font-mono mt-4 mb-4 bg-blue-700 text-white font-bold py-2 px-8 rounded shadow border-2 border-gray-500
+        hover:bg-transparent
+        hover:text-blue-700 transition-all duration-300
+        "
+        >Print/Download</button>}
         content={()=>componentRef.current}
-        /> */}
+        />
         {showInvoice ? (
+          <>
           <div ref={componentRef}>
             <Header handlePrint={handlePrint} />
 
@@ -92,17 +96,21 @@ function App() {
               bankAccount={bankAccount}
               website={website}
             />
+             </div>
 
             <button
               onClick={() => setShowInvoice(false)}
-              className="mt-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500
+              className="mt-5 
+              font-mono
+              bg-blue-900 text-white font-bold py-2 px-8 rounded shadow border-2 bg-blue-900
             hover:bg-transparent
-            hover:text-blue-500 transition-all duration-300
+            hover:text-blue-700 transition-all duration-300
             "
             >
               Edit Information
             </button>
-          </div>
+         
+          </>
         ) : (
           <>
             <div className="flex flex-col  justify-center">
@@ -300,7 +308,9 @@ function App() {
 
               <button
                 onClick={() => setShowInvoice(true)}
-                className=" mt-4 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500
+                className=" mt-4 
+                font-mono
+                bg-blue-900 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-900
             hover:bg-transparent
             hover:text-blue-500 transition-all duration-300
             "

@@ -6,11 +6,11 @@ export default function Table({items,quantity,rate,amount,list,total}) {
     <>
          <table width="100%" className="mb-5">
       <thead>
-        <tr  className="bg-gray-200 p-1 ">
-          <td className="font-bold">Item</td>
-          <td className="font-bold">Quantity</td>
-          <td className="font-bold">Price</td>
-          <td className="font-bold">Amount</td>
+        <tr  className="bg-gray-500 p-2 text-white">
+          <td className="font-bold font-mono pl-7">Item</td>
+          <td className="font-bold font-mono">Quantity</td>
+          <td className="font-bold font-mono">Price</td>
+          <td className="font-bold font-mono">Amount</td>
 
           </tr>
 
@@ -19,10 +19,10 @@ export default function Table({items,quantity,rate,amount,list,total}) {
             <React.Fragment key={id}>
           <tbody>
             <tr>
-              <td>{items}</td>
-              <td>{quantity}</td>
-              <td>{rate}</td>
-              <td>{amount}</td>
+              <td className="font-mono  pl-7">{items}</td>
+              <td className="font-mono">{quantity}</td>
+              <td className="font-mono">{rate}</td>
+              <td className="font-mono">{amount}</td>
             </tr>
           </tbody>
           </React.Fragment>
@@ -33,7 +33,7 @@ export default function Table({items,quantity,rate,amount,list,total}) {
 
      </table>
      <div>
-      <h3 className="flex items-end justify-end text-gray-400 font-bold text-2xl py-2">BDT:{total.toLocaleString()}</h3>
+      <h3 className="flex items-end justify-end text-gray-900 font-bold text-xl py-2 mr-5 font-mono ">BDT:{total.toLocaleString()}</h3>
      </div>
     </>
   )

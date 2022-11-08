@@ -29,21 +29,29 @@ export default function TableForm({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newItems = {
-      id: uuidv4(),
-      items: items,
-      quantity: quantity,
-      rate: rate,
-      amount: amount,
+    if(!items || !quantity || !rate){
+        alert("please fill in all inputs");
+    }
+    else{
+      const newItems = {
+        id: uuidv4(),
+        items: items,
+        quantity: quantity,
+        rate: rate,
+        amount: amount,
+      };
+      setItems("");
+      setQuantity("");
+      setRate("");
+      setAmount("");
+      setList([...list, newItems]);
+      setIsEditing(false);
+      //console.log(list);
     };
-    setItems("");
-    setQuantity("");
-    setRate("");
-    setAmount("");
-    setList([...list, newItems]);
-    setIsEditing(false);
-    //console.log(list);
-  };
+
+    }
+
+    
 
    // calculate the items amount function
 
@@ -152,9 +160,9 @@ export default function TableForm({
         <button
           type="submit"
           onClick={handleSubmit}
-          className="mt-5 mb-5 bg-blue-500 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500
+          className="mt-5 mb-5  font-mono bg-blue-900 text-white font-bold py-2 px-8 rounded shadow border-2 border-blue-500
             hover:bg-transparent
-            hover:text-blue-500 transition-all duration-300
+            hover:text-blue-900 transition-all duration-300
             "
         >
           {isEditing ?  "Edit Item" : "Add Item"}
@@ -164,11 +172,11 @@ export default function TableForm({
 
       <table width="100%" className="mb-5">
       <thead>
-        <tr  className="bg-gray-200 p-1 ">
-          <td className="font-bold">Item</td>
-          <td className="font-bold">Quantity</td>
-          <td className="font-bold">Price</td>
-          <td className="font-bold">Amount</td>
+        <tr  className="bg-gray-500 p-1 text-white">
+          <td className="font-bold font-mono pl-7">Item</td>
+          <td className="font-bold font-mono">Quantity</td>
+          <td className="font-bold font-mono">Price</td>
+          <td className="font-bold font-mono">Amount</td>
 
           </tr>
 
@@ -177,15 +185,15 @@ export default function TableForm({
             <React.Fragment key={id}>
           <tbody>
             <tr>
-              <td>{items}</td>
-              <td>{quantity}</td>
-              <td>{rate}</td>
+              <td className="font-mono pl-7">{items}</td>
+              <td className="font-mono pl-7">{quantity}</td>
+              <td className="font-mono pl-7">{rate}</td>
               <td className="amount">{amount}</td>
               <td><button  onClick={() =>deleteRow(id)}><RiChatDeleteLine
               className="font-bold text-red-500 text-xl"
               /></button></td>
               <td><button  onClick={() =>editRow(id)}><CiEdit
-              className="font-bold text-red-500 text-xl"
+              className="font-bold text-blue-500 text-xl"
               /></button></td>
             </tr>
           </tbody>
@@ -198,7 +206,7 @@ export default function TableForm({
      </table>
 
      <div>
-      <h3 className="text-gray-400 font-bold text-2xl py-2">BDT:{total.toLocaleString()}</h3>
+      <h3 className="mr-7 text-gray-900 font-bold font-mono flex items-end justify-end text-xl py-2">BDT:{total.toLocaleString()}</h3>
      </div>
     
 

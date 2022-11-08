@@ -4,8 +4,8 @@ export default function ClientDetails({clientName,clientAddress}) {
   return (
     <>
        <section className="mt-5">
-        <h2 className="text-xl uppercase  ">Client's Name:{clientName}</h2>
-        <p>Client's Address:{clientAddress}</p>
+        <h2 className="text-xl uppercase mb-1 text-gray-900 font-bold font-serif">{clientName}</h2>
+        <p className="text-zinc-900 text-lg font-serif">{clientAddress}</p>
       </section>
     </>
   )

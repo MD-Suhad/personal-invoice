@@ -5,11 +5,11 @@ export default function Header({ handlePrint }) {
     <>
       <header className="flex flex-col items-center justify-center mb-5 xl:flex-row xl:justify-between">
         <div>
-          <h1 className="font-bold uppercase tracking-wide text-4xl m-2">
+          <h1 className="text-amber-1000 font-bold uppercase tracking-wide text-4xl m-2 font-serif">
             Invoice
           </h1>
         </div>
-        <div >
+        {/* <div >
           <ul className="flex items-center justify-between flex-wrap ">
             <button
               onClick={handlePrint}
@@ -41,7 +41,7 @@ export default function Header({ handlePrint }) {
               </button>
             </li>
           </ul>
-        </div>
+        </div> */}
       </header>
     </>
   );
