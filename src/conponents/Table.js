@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Table({items,quantity,rate,amount,list}) {
+export default function Table({items,quantity,rate,amount,list,total}) {
   console.log(items)
   return (
     <>
@@ -32,6 +32,9 @@ export default function Table({items,quantity,rate,amount,list}) {
            ))}
 
      </table>
+     <div>
+      <h3 className="flex items-end justify-end text-gray-400 font-bold text-2xl py-2">BDT:{total.toLocaleString()}</h3>
+     </div>
     </>
   )
 }

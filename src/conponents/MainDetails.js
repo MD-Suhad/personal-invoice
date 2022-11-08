@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function MainDetails({name,address}) {
-  console.log(name,address);
+  //console.log(name,address);
   return (
     <>
       <section className="flex flex-col items-end justify-end">

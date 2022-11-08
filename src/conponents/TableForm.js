@@ -14,7 +14,10 @@ export default function TableForm({
   setRate,
   list,
   setList,
+  total,
+  setTotal
 }) {
+  console.log(total);
 
 
    const [isEditing,setIsEditing] = useState(false);
@@ -38,7 +41,8 @@ export default function TableForm({
     setRate("");
     setAmount("");
     setList([...list, newItems]);
-    console.log(list);
+    setIsEditing(false);
+    //console.log(list);
   };
 
    // calculate the items amount function
@@ -49,6 +53,27 @@ export default function TableForm({
     };
     calculateAmount(amount);
   }, [amount, rate, quantity, setAmount]);
+
+
+  //calculate the total amount of items is table
+
+  useEffect(()=>{
+    let rows = document.querySelectorAll(".amount")
+  let sum = 0;
+
+  for( let i = 0; i <rows.length; i++ ) {
+
+      if(rows[i].className === "amount"){
+        sum += isNaN(rows[i].innerHTML) ? 0 : parseInt(rows[i].innerHTML);
+        setTotal(sum);
+      }
+      
+  }
+
+  },)
+
+
+
 
   
 
@@ -62,6 +87,7 @@ export default function TableForm({
       setItems(editingRow.items);
       setQuantity(editingRow.quantity);
       setRate(editingRow.Rate);
+      
       setAmount(editingRow.amount);
   }
 
@@ -154,7 +180,7 @@ export default function TableForm({
               <td>{items}</td>
               <td>{quantity}</td>
               <td>{rate}</td>
-              <td>{amount}</td>
+              <td className="amount">{amount}</td>
               <td><button  onClick={() =>deleteRow(id)}><RiChatDeleteLine
               className="font-bold text-red-500 text-xl"
               /></button></td>
@@ -170,6 +196,10 @@ export default function TableForm({
            ))}
 
      </table>
+
+     <div>
+      <h3 className="text-gray-400 font-bold text-2xl py-2">BDT:{total.toLocaleString()}</h3>
+     </div>
     
 
 

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
+// import ReactToPrint from 'react-to-print';
+
 
 import ClientDetails from "./conponents/ClientDetails";
 import Dates from "./conponents/Dates";
@@ -10,6 +12,14 @@ import Table from "./conponents/Table";
 import TableForm from "./conponents/TableForm";
 
 function App() {
+
+
+    const componentRef = useRef();
+
+
+
+
+
   const handlePrint = () => {
     window.print();
   };
@@ -35,12 +45,16 @@ function App() {
   const [rate, setRate] = useState();
   const [amount, setAmount] = useState();
   const [list,setList] = useState([]);
+  const [total,setTotal] = useState(0);
 
   return (
     <>
       <main className="m-5 p-5 md:max-w-xl md:max-auto lg:max-w-2xl xl:max-w-4xl xl:mx-auto bg-white rounded shadow">
+        {/* <ReactToPrint trigger={()=> <button>print/Download</button>}
+        content={()=>componentRef.current}
+        /> */}
         {showInvoice ? (
-          <div>
+          <div ref={componentRef}>
             <Header handlePrint={handlePrint} />
 
             <MainDetails name={name} address={address} />
@@ -62,6 +76,9 @@ function App() {
             rate={rate} 
             amount={amount}
             list={list}
+            setList={setList}
+            total={total}
+            setTotal={setTotal}
             />
 
             <Notes notes={notes} />
@@ -261,6 +278,8 @@ function App() {
                 setAmount={setAmount}
                 list={list}
                 setList={setList}
+                total={total}
+                setTotal={setTotal}
 
                 />
               </article>
