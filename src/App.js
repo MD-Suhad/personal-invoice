@@ -1,5 +1,6 @@
 import { useState,useRef } from "react";
 import ReactToPrint from 'react-to-print';
+import axios from 'axios';
 
 
 import ClientDetails from "./conponents/ClientDetails";
@@ -15,6 +16,9 @@ function App() {
 
 
     const componentRef = useRef();
+
+
+    
 
 
 
@@ -45,8 +49,36 @@ function App() {
   const [list,setList] = useState([]);
   const [total,setTotal] = useState(0);
 
+
+
+ async function handleFormSubmit(e){
+  e.preventDefault()
+  try {
+    await axios.post("http://localhost:4000/formData",{
+        name,
+        address,
+        email,
+        phone,
+        invoiceNumber,
+        invoiceDate,
+        items,
+        quantity,
+        rate,
+        amount,
+        list,
+        total
+    })
+    
+  }
+  catch(error){
+    console.log(error)
+  }
+ }
+
+
   return (
     <>
+    <form onSubmit={handleFormSubmit}>
       <main className="m-5 p-5 md:max-w-xl md:max-auto lg:max-w-2xl xl:max-w-4xl xl:mx-auto bg-white rounded shadow">
         <ReactToPrint trigger={()=> <button
         className=" font-mono mt-4 mb-4 bg-blue-700 text-white font-bold py-2 px-8 rounded shadow border-2 border-gray-500
@@ -307,6 +339,7 @@ function App() {
               />
 
               <button
+                
                 onClick={() => setShowInvoice(true)}
                 className=" mt-4 
                 font-mono
@@ -321,6 +354,7 @@ function App() {
           </>
         )}
       </main>
+      </form>
     </>
   );
 }
